@@ -1,10 +1,11 @@
 import React from 'react'
 
+import WaterCooler from './WaterCooler'
 
 export default function WaitingRoom(props) {
     return <>
 
-    <h1>Hi</h1>
+    <WaterCooler/>
 
     </>
 }
