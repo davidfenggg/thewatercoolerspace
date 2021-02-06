@@ -6,7 +6,8 @@ import styled from 'styled-components';
 
 const Image = styled.img`
 
-width: 20vw;
+width: 15%;
+min-width: 200px;
 
 `;
 
