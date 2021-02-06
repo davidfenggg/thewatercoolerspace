@@ -1,8 +1,6 @@
 var express = require('express');
-const { Pool, Client } = require('pg')
+var db = require('db');
 var app = express();
-const pool = new Pool()
-
 
 app.get('/', function (req, res) {
    res.send('Hello World');
