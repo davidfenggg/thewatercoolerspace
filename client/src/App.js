@@ -8,6 +8,8 @@ import {
 
 } from "react-router";
 import Background from './components/misc/Background';
+import Login from './components/login/Login';
+import WaitingRoom from './components/waitingroom/WaitingRoom'
 
 function App() {
   return (
@@ -16,7 +18,10 @@ function App() {
         <Background>
           <Switch>
 
-            <Route exact path="/" component={} />
+
+            <Route path="/company/:companyId" component={WaitingRoom} />
+
+            <Route exact path="/" component={Login} />
 
           </Switch>
         </Background>
