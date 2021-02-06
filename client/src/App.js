@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-
+import "antd/dist/antd.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Background from "./components/misc/Background";
 import Login from "./components/login/Login";

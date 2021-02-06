@@ -2,22 +2,20 @@ import React from 'react'
 
 import WaterCooler from './WaterCooler'
 
-import styled from 'styled-components'
+import { Button, Space } from 'antd';
 
-const FullHeight = styled.div`
-height: 100vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
 
-`
+
 
 export default function WaitingRoom(props) {
     return <>
 
-        <FullHeight >
-            <WaterCooler />
-        </FullHeight>
+            <WaterCooler>
+
+                <Space direction='vertical' size="large">
+                    <Button type="primary" size="large">JOIN GAME</Button>
+                    <Button type="primary" size="large">JOIN ZOOM</Button>
+                </Space>
+            </WaterCooler>
     </>
 }
