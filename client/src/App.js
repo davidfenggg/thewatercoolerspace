@@ -22,4 +22,15 @@ function App() {
   );
 }
 
+function randomColor() {
+  return (
+    "#" + ("000000" + ((Math.random() * 0xffffff) << 0).toString(16)).slice(-6)
+  );
+}
+
+function setColor() {
+  document.getElementById("myDiv").style.backgroundColor = randomColor();
+  setTimeout(setColor, 2000);
+}
+
 export default App;

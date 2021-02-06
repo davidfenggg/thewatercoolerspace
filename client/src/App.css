@@ -37,7 +37,60 @@
   }
 }
 
-#myDiv {
-  background-color: red;
-  transition: background-color 4s;
+@-webkit-keyframes animation {
+  0% {
+    background-color: #f7b5cc;
+  }
+  20.0% {
+    background-color: #b6b9ed;
+  }
+  40.0% {
+    background-color: #95e1f7;
+  }
+  60.0% {
+    background-color: #f5f7b8;
+  }
+  80.0% {
+    background-color: #baebd5;
+  }
+  100.0% {
+    background-color: #f7b5cc;
+  }
+}
+
+@keyframes animation {
+  0% {
+    background-color: #f7b5cc;
+  }
+  20.0% {
+    background-color: #b6b9ed;
+  }
+  40.0% {
+    background-color: #95e1f7;
+  }
+  60.0% {
+    background-color: #f5f7b8;
+  }
+  80.0% {
+    background-color: #baebd5;
+  }
+  100.0% {
+    background-color: #f7b5cc;
+  }
+}
+
+.background {
+  height: 100px;
+  -webkit-animation-name: animation;
+  -webkit-animation-duration: 13s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-play-state: running;
+
+  animation-name: animation;
+  animation-duration: 13s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+  background-color: #f00;
 }
