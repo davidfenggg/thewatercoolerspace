@@ -13,24 +13,12 @@ function App() {
         <Background>
           <Switch>
             <Route path="/company/:companyId" component={WaitingRoom} />
-
             <Route exact path="/" component={Login} />
           </Switch>
         </Background>
       </Router>
     </div>
   );
-}
-
-function randomColor() {
-  return (
-    "#" + ("000000" + ((Math.random() * 0xffffff) << 0).toString(16)).slice(-6)
-  );
-}
-
-function setColor() {
-  document.getElementById("myDiv").style.backgroundColor = randomColor();
-  setTimeout(setColor, 2000);
 }
 
 export default App;

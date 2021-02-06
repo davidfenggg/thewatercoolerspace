@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import WaterCoolerImage from '../../assets/water_cooler.png';
+import WaterCoolerImage from "../../assets/water_cooler.png";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Image = styled.img`
 
@@ -11,6 +11,6 @@ min-width: 200px;
 
 `;
 
-export default function WaterCooler (props) {
-   return <Image src={WaterCoolerImage}/>
+export default function WaterCooler(props) {
+  return <Image src={WaterCoolerImage} />;
 }
