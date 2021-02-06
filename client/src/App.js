@@ -6,7 +6,7 @@ import {
   Switch,
   Route,
 
-} from "react-router";
+} from "react-router-dom";
 import Background from './components/misc/Background';
 import Login from './components/login/Login';
 import WaitingRoom from './components/waitingroom/WaitingRoom'

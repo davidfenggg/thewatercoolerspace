@@ -6,7 +6,7 @@ export default function Background (props){
 
     return <>
 
-        {props.component}
+        {props.children}
 
     </>
 }
