@@ -25,7 +25,6 @@ export default function WaitingRoom(props) {
   const [right, setRight] = useState([]);
 
   useEffect(() => {
-
     setLeft([]);
     setRight([]);
 
@@ -53,12 +52,9 @@ export default function WaitingRoom(props) {
           </Space>
         </WaterCooler>
         <PlayerList>{right}</PlayerList>
-
-
       </Space>
 
-      <VoteModal/>
-
+      <VoteModal />
     </>
   );
 }
