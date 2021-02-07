@@ -5,6 +5,10 @@ import { Button, Input, Space } from "antd";
 import { getSocket } from "../../services/socket";
 import styled from "styled-components";
 
+const SpacePadded = styled(Space)`
+  padding-top: 40px;
+`;
+
 const InputField = styled(Input)`
   width: 10rem;
 `;
@@ -29,7 +33,7 @@ export default function Login(props) {
   return (
     <>
       <WaterCooler>
-        <Space direction="vertical" size="small">
+        <SpacePadded direction="vertical" size="small">
           <InputField
             onChange={(e) => setName(e.target.value)}
             value={name}
@@ -52,7 +56,7 @@ export default function Login(props) {
           <Button size="large" onClick={emitLogin}>
             Join
           </Button>
-        </Space>
+        </SpacePadded>
       </WaterCooler>
     </>
   );
