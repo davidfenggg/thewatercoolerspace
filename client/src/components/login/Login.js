@@ -6,6 +6,8 @@ import { getSocket } from "../../services/socket";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
+import Admin from '../admin/Admin';
+
 const SpacePadded = styled(Space)`
   padding-top: 40px;
 `;
@@ -25,7 +27,7 @@ export default function Login(props) {
     getSocket().on('login-response', e => {
       console.log(e);
 
-      if(e.accepted){
+      if (e.accepted) {
         history.push(`/company/${e.companyId}/`)
       } else {
         message.error('There was an issue entering this organization.')
@@ -72,6 +74,10 @@ export default function Login(props) {
           </Button>
         </SpacePadded>
       </WaterCooler>
+      <br />
+      <br />
+      <br />
+      <Admin />
     </>
   );
 }

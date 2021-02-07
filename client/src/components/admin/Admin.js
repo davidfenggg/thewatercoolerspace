@@ -3,6 +3,8 @@ import { Button, Input, Space, Modal } from "antd";
 
 import styled from "styled-components";
 
+import {getSocket} from '../../services/socket'
+
 const InputField = styled(Input)`
   width: 30rem;
 `;
@@ -12,10 +14,16 @@ export default function Admin(props) {
   const [pin, setPin] = useState('');
   const [organizationId, setOrgId] = useState('');
 
-  const [vis, setVis] = useState(true);
+  const [vis, setVis] = useState(false);
 
   function onSubmit() {
-    console.log(orgName);
+    getSocket().emit('create-organization',{
+
+      organizationId: organizationId,
+      pin: pin,
+      name: orgName
+
+    })
     setVis(false);
   }
 
@@ -32,10 +40,13 @@ export default function Admin(props) {
       id += '-' + (Math.ceil(Math.random() * 9000 + 1000))
     }
 
+    setOrgId(id);
     return id;
   }
 
-  return (
+  return ( <>
+      <Button onClick={() => setVis(true)}>Create New Organization</Button>
+
     <Modal
       visible={vis}
       width="50%"
@@ -78,5 +89,7 @@ export default function Admin(props) {
       </Space>
 
     </Modal>
+    </>
+
   );
 }
