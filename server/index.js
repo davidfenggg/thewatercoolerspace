@@ -2,8 +2,13 @@ var express = require('express');
 var cors = require('cors')
 var app = express();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
-var db = require('./db.js');
+const io = require('socket.io')(http, {
+   cors: {
+     origin: "*",
+     methods: ["GET", "POST"]
+   }
+ });
+// var db = require('./db.js');
 
 app.use(cors())
 
@@ -14,9 +19,9 @@ app.get('/', async function (req, res) {
 })
 
 io.on('connection', (socket) => {
-   console.log('user connected')
+   console.log('user connected');
    socket.on('login', (msg) => {
-      console.log('logged in!')
+      console.log(msg)
    });
    socket.on('disconnect', () => {
       console.log('user disconnected')
