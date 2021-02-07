@@ -13,15 +13,17 @@ var db = require('./db.js');
 app.use(cors())
 
 app.get('/', async function (req, res) {
-
+   db.getGames(3)
    res.send('Hello World');
-   console.log(await db.addOrganization('Carnegie Mellon University', '6666', 'cmu'));
 })
 
 var userNames = {}
+var gamesChosen = {}
+var votesCast = {}
 
 io.on('connection', (socket) => {
    try{
+      var companyRoom = '';
       socket.on('login', async (msg) => {
          if (await db.checkOrganization(msg.companyId, msg.pin)) {
             socket.emit('login-response', 
@@ -39,10 +41,44 @@ io.on('connection', (socket) => {
             io.to(msg.companyId).emit('room-status', {
                names:listOfNames
             });
+            companyRoom = msg.companyId;
          } else {
             socket.emit('login-response', {accepted:false});
          }
       });
+      socket.on('request-games', async (msg) => {
+         var numPeople = io.sockets.adapter.rooms.get(companyRoom).size;
+         var gamesPick = (await db.getGames(numPeople))
+         io.to(companyRoom).emit('start-voting', {
+            games:gamesPick
+         })
+         gamesChosen[companyRoom] = gamesPick;
+         votesCast[companyRoom] = [0,0,0];
+         setTimeout(async () => {
+            var choice = 0;
+            if (votesCast[companyRoom] === [0,0,0]) {
+               var p1 = Math.floor(Math.random() * 3);
+               choice = p1;
+            } else {
+               var sum = votesCast[companyRoom][0] + votesCast[companyRoom][1] + votesCast[companyRoom][2];
+               var p1 = Math.floor(Math.random() * sum);
+               if (p1 < votesCast[companyRoom][0]) {
+                  choice = 0;
+               } else if (p1 < votesCast[companyRoom][0] + votesCast[companyRoom][1]) {
+                  choice = 1;
+               } else {
+                  choice = 2;
+               }
+            }
+            io.to(companyRoom).emit('start-game', {game:gamesChosen[companyRoom][choice]});
+            gamesChosen[companyRoom] = [];
+            votesCast[companyRoom] = [0,0,0];
+         },10000)
+      });
+      socket.on('vote', async (ind) => {
+         votesCast[companyRoom][ind]++;
+         console.log(votesCast[companyRoom])
+      })
       socket.on('disconnecting', () => {
          var rooms = socket.rooms;
          rooms.forEach((room) => {

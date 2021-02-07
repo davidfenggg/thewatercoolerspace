@@ -72,4 +72,24 @@ var getOrganizationName = async function (nickname) {
     
 }
 
-module.exports = {checkOrganization, addOrganization, getOrganizationName};
+var getGames = async function (numPlayers) {
+    try{
+        const res =  await query(`SELECT * FROM games where (minplayers <= ${numPlayers}) and (maxplayers >= ${numPlayers})`);
+        var gameCount = res.rows.length;
+        var p1 = Math.floor(Math.random() * gameCount);
+        var p2 = Math.floor(Math.random() * gameCount);
+        while (p2 === p1) {
+            p2 = Math.floor(Math.random() * gameCount);
+        }
+        var p3 = Math.floor(Math.random() * gameCount);
+        while (p3 === p1 || p3 === p2) {
+            p3 = Math.floor(Math.random() * gameCount);
+        }
+        var games = [res.rows[p1], res.rows[p2], res.rows[p3]];
+        return games
+    }catch(err){
+        console.log(err)
+    }
+}
+
+module.exports = {checkOrganization, addOrganization, getOrganizationName, getGames};
