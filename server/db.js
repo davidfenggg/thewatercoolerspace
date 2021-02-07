@@ -69,7 +69,7 @@ var getOrganizationName = async function (nickname) {
         return undefined;
     }
     const res =  await query(`SELECT name FROM organizations where nickname = \'${nickname}\'`);
-    console.log(res)
+    
 }
 
 module.exports = {checkOrganization, addOrganization, getOrganizationName};
