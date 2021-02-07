@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const socket = io("10.103.10.195:6060");
+const socket = io("35.209.6.79:6060");
 
 
  export function getSocket() {
