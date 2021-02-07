@@ -35,6 +35,12 @@ export default function WaitingRoom(props) {
 
   const [gameStarted, setGameStarted] = useState(false);
 
+  const [gameObject, setGameObject] = useState({});
+
+const requestVoting = () => {
+  getSocket().emit('request-games');
+}
+
 const updateList = (names) => {
   setLeft([]);
   setRight([]);
@@ -55,15 +61,13 @@ const updateList = (names) => {
 
     })
 
-    getSocket().on('start-voting', s => {
+    
+    getSocket().on('start-game', s => {
+      setGameStarted(true);
+      setGameObject(s.game);
       console.log(s)
 
-    })
-
-    getSocket().on('start-voting', s => {
-      console.log(s)
-
-    })
+    });
 
  
   }, []);
@@ -77,13 +81,11 @@ const updateList = (names) => {
         <PlayerList>{left}</PlayerList>
         <WaterCooler>
           <Space direction="vertical" size="large">
-            {gameStarted && <> <Button type="primary" size="large">
-              JOIN GAME
+            {gameStarted && <a href={gameObject.link}>  <Button type="primary" size="large">
+              JOIN {gameObject.name}
             </Button>
-            <Button type="primary" size="large">
-              JOIN ZOOM
-            </Button> </>}
-            {!gameStarted && <Button type="primary" size="large">
+             </a>}
+            {!gameStarted && <Button disabled={left.length === 1 && right.length === 0} onClick={requestVoting} type="primary" size="large">
               START GAME
             </Button>}
           </Space>
