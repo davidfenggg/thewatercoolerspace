@@ -13,7 +13,10 @@ export default function Login(props) {
     <>
       <WaterCooler >
         <Space direction='vertical' size='small'>
-          <InputField placeholder='Enter Company ID'size="large" />
+          <InputField placeholder='Enter your name' size="large" />
+          <InputField placeholder='Enter Company ID' size="large" />
+          <InputField placeholder='Enter PIN' size="large" />
+
           <Button size="large">Join</Button>
         </Space>
       </WaterCooler>

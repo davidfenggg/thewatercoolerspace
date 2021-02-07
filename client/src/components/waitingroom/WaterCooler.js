@@ -15,7 +15,7 @@ top: 0; left: 0; bottom: 0; right: 0;
 
 const Container = styled.div`
 
-padding-top: 25rem;
+padding-top: 23rem;
 
 `
 
