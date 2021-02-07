@@ -10,7 +10,7 @@ import VoteModal from "./VoteModal";
 import Admin from "../admin/Admin.js";
 import styled from "styled-components";
 
-import { getSocket } from 'socket.io-client';
+import { getSocket } from "../../services/socket";
 
 const SpacePadded = styled(Space)`
   padding-top: 50px;
@@ -35,20 +35,23 @@ export default function WaitingRoom(props) {
 
   const [gameStarted, setGameStarted] = useState(false);
 
+const updateList = (names) => {
+  setLeft([]);
+  setRight([]);
+
+  for (let i = 0; i < names.length; i++) {
+    if (i % 2 === 0) {
+      setLeft((left) => [...left, names[i]]);
+    } else {
+      setRight((right) => [...right, names[i]]);
+    }
+  }
+}
+
   useEffect(() => {
 
     getSocket().on('room-status', s => {
-      setLeft([]);
-      setRight([]);
-  
-      for (let i = 0; i < s.names.length; i++) {
-        if (i % 2 === 0) {
-          setLeft((left) => [...left, s.names[i]]);
-        } else {
-          setRight((right) => [...right, s.names[i]]);
-        }
-      }
-      
+      updateList(s.names);
 
     })
 

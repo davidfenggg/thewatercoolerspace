@@ -18,6 +18,8 @@ app.get('/', async function (req, res) {
    console.log(await db.addOrganization('Carnegie Mellon University', '6666', 'cmu'));
 })
 
+var userNames = {}
+
 io.on('connection', (socket) => {
    try{
       socket.on('login', async (msg) => {
@@ -26,9 +28,34 @@ io.on('connection', (socket) => {
                         {accepted:true, 
                         'org-name':(await db.getOrganizationName(msg.companyId)),
                         companyId:msg.companyId});
+            waiting = true;
+            socket.join(msg.companyId);
+            userNames[socket.id] = msg.name;
+            var listOfSockets = io.sockets.adapter.rooms.get(msg.companyId);
+            var listOfNames = []
+            listOfSockets.forEach((id) => {
+               listOfNames.push(userNames[id]);
+            });
+            io.to(msg.companyId).emit('room-status', {
+               names:listOfNames
+            });
          } else {
             socket.emit('login-response', {accepted:false});
          }
+      });
+      socket.on('disconnecting', () => {
+         var rooms = socket.rooms;
+         rooms.forEach((room) => {
+            var listOfSockets = io.sockets.adapter.rooms.get(room);
+            listOfSockets.delete(socket.id);
+            var listOfNames = []
+            listOfSockets.forEach((id) => {
+               listOfNames.push(userNames[id]);
+            });
+            io.to(room).emit('room-status', {
+               names:listOfNames
+            });
+         });
       });
       socket.on('disconnect', () => {
          console.log('user disconnected')
