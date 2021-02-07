@@ -5,6 +5,7 @@ import WaterCooler from "./WaterCooler";
 import PlayerList from "./PlayerList";
 
 import { Button, Space } from "antd";
+import VoteModal from "./VoteModal";
 
 export default function WaitingRoom(props) {
   const players = [
@@ -24,6 +25,10 @@ export default function WaitingRoom(props) {
   const [right, setRight] = useState([]);
 
   useEffect(() => {
+
+    setLeft([]);
+    setRight([]);
+
     for (let i = 0; i < players.length; i++) {
       if (i % 2 === 0) {
         setLeft((left) => [...left, players[i]]);
@@ -48,7 +53,12 @@ export default function WaitingRoom(props) {
           </Space>
         </WaterCooler>
         <PlayerList>{right}</PlayerList>
+
+
       </Space>
+
+      <VoteModal/>
+
     </>
   );
 }
