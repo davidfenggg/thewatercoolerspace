@@ -21,7 +21,7 @@ export default function Admin(props) {
 
       organizationId: organizationId,
       pin: pin,
-      name: orgName
+      name: orgName.toLowerCase()
 
     })
     setVis(false);

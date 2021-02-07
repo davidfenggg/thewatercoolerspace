@@ -39,7 +39,7 @@ export default function Login(props) {
 
   const emitLogin = () => {
     getSocket().emit("login", {
-      name: name,
+      name: name.toLowerCase(),
       companyId: companyId,
       pin: pin
 
