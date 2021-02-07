@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import WaterCooler from "../waitingroom/WaterCooler";
 import { Button, Input, Space } from "antd";
 
+import { getSocket } from "../../services/socket";
 import styled from "styled-components";
 
 const InputField = styled(Input)`
