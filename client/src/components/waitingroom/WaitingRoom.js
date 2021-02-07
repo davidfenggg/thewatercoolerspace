@@ -70,7 +70,10 @@ const updateList = (names) => {
 
   return (
     <>
+
       <SpacePadded direction="horizontal" size={100}>
+      
+      
         <PlayerList>{left}</PlayerList>
         <WaterCooler>
           <Space direction="vertical" size="large">
@@ -80,10 +83,9 @@ const updateList = (names) => {
             <Button type="primary" size="large">
               JOIN ZOOM
             </Button> </>}
-            <p style={{width: '150px'}}>Press start game when all users are in</p>
-            <Button type="primary" size="large">
+            {!gameStarted && <Button type="primary" size="large">
               START GAME
-            </Button>
+            </Button>}
           </Space>
         </WaterCooler>
         <PlayerList>{right}</PlayerList>
@@ -91,6 +93,8 @@ const updateList = (names) => {
 
       <VoteModal />
       <Admin />
+      <p style={{position: 'absolute', bottom: '0', right: '0', left: '0' }}>Press start game when all users are in</p>
+
     </>
   );
 }
