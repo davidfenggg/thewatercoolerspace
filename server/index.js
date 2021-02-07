@@ -24,7 +24,8 @@ io.on('connection', (socket) => {
          if (await db.checkOrganization(msg.companyId, msg.pin)) {
             socket.emit('login-response', 
                         {accepted:true, 
-                        'org-name':(await db.getOrganizationName(msg.companyId))});
+                        'org-name':(await db.getOrganizationName(msg.companyId)),
+                        companyId:msg.companyId});
          } else {
             socket.emit('login-response', {accepted:false});
          }
@@ -33,7 +34,7 @@ io.on('connection', (socket) => {
          console.log('user disconnected')
       });
       socket.on('create-organization', async (msg) => {
-         
+         await db.addOrganization(msg.name, msg.pin, msg.organizationId);
       });
    }
    catch (err){
