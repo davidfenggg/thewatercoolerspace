@@ -37,22 +37,22 @@ export default function WaitingRoom(props) {
 
   const [gameObject, setGameObject] = useState({});
 
-const requestVoting = () => {
-  getSocket().emit('request-games');
-}
+  const requestVoting = () => {
+    getSocket().emit('request-games');
+  }
 
-const updateList = (names) => {
-  setLeft([]);
-  setRight([]);
+  const updateList = (names) => {
+    setLeft([]);
+    setRight([]);
 
-  for (let i = 0; i < names.length; i++) {
-    if (i % 2 === 0) {
-      setLeft((left) => [...left, names[i]]);
-    } else {
-      setRight((right) => [...right, names[i]]);
+    for (let i = 0; i < names.length; i++) {
+      if (i % 2 === 0) {
+        setLeft((left) => [...left, names[i]]);
+      } else {
+        setRight((right) => [...right, names[i]]);
+      }
     }
   }
-}
 
   useEffect(() => {
 
@@ -61,7 +61,7 @@ const updateList = (names) => {
 
     })
 
-    
+
     getSocket().on('start-game', s => {
       setGameStarted(true);
       setGameObject(s.game);
@@ -69,25 +69,27 @@ const updateList = (names) => {
 
     });
 
- 
+
   }, []);
 
   return (
     <>
 
-      <SpacePadded direction="horizontal" size={100}>
-      
-      
+      <SpacePadded direction="horizontal" size={200}>
+
+
         <PlayerList>{left}</PlayerList>
         <WaterCooler>
           <Space direction="vertical" size="large">
             {gameStarted && <a href={gameObject.link}>  <Button type="primary" size="large">
               JOIN {gameObject.name}
             </Button>
-             </a>}
-            {!gameStarted && <Button disabled={left.length === 1 && right.length === 0} onClick={requestVoting} type="primary" size="large">
+            </a>}
+            {!gameStarted && <div style={{ position: 'absolute', top: '-5', left: '46%' }}><Button 
+
+              disabled={left.length === 1 && right.length === 0} onClick={requestVoting} type="primary" size="large">
               START GAME
-            </Button>}
+            </Button></div>}
           </Space>
         </WaterCooler>
         <PlayerList>{right}</PlayerList>
@@ -95,7 +97,7 @@ const updateList = (names) => {
 
       <VoteModal />
       <Admin />
-      <p style={{position: 'absolute', bottom: '0', right: '0', left: '0' }}>Press start game when all users are in</p>
+      <p style={{ position: 'absolute', bottom: '0', right: '0', left: '0' }}>Press start game when all users are in</p>
 
     </>
   );
