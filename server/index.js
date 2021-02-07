@@ -1,9 +1,11 @@
 var express = require('express');
-var db = require('db');
+var db = require('./db.js');
 var app = express();
 
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
+
    res.send('Hello World');
+   console.log(await db.addOrganization('Carnegie Mellon University', '6666', 'cmu'));
 })
 
 var server = app.listen(6060, function () {
@@ -12,3 +14,4 @@ var server = app.listen(6060, function () {
    
    console.log("Example app listening at http://%s:%s", host, port)
 })
+
