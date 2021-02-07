@@ -18,7 +18,12 @@ export default function Login(props) {
     console.log(name);
     console.log(companyId);
     console.log(pin);
-    getSocket().emit("login", 'ho');
+    getSocket().emit("login", {
+      name: name,
+      companyId: companyId,
+      pin: pin
+
+    });
   };
 
   return (
