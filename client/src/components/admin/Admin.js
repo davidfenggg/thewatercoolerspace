@@ -24,6 +24,18 @@ export default function Admin(props) {
       name: orgName.toLowerCase()
 
     })
+
+    Modal.info({
+      title: 'Share your organization!',
+      content: (
+        <div>
+          <p>Company ID: {organizationId}</p>
+          <p>PIN: {pin}</p>
+        </div>
+      )
+    });
+
+
     setVis(false);
   }
 

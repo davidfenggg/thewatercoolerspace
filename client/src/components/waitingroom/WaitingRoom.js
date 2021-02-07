@@ -33,20 +33,36 @@ export default function WaitingRoom(props) {
   const [left, setLeft] = useState([]);
   const [right, setRight] = useState([]);
 
+  const [gameStarted, setGameStarted] = useState(false);
+
   useEffect(() => {
 
-    
-
-    setLeft([]);
-    setRight([]);
-
-    for (let i = 0; i < players.length; i++) {
-      if (i % 2 === 0) {
-        setLeft((left) => [...left, players[i]]);
-      } else {
-        setRight((right) => [...right, players[i]]);
+    getSocket().on('room-status', s => {
+      setLeft([]);
+      setRight([]);
+  
+      for (let i = 0; i < s.names.length; i++) {
+        if (i % 2 === 0) {
+          setLeft((left) => [...left, s.names[i]]);
+        } else {
+          setRight((right) => [...right, s.names[i]]);
+        }
       }
-    }
+      
+
+    })
+
+    getSocket().on('start-voting', s => {
+      console.log(s)
+
+    })
+
+    getSocket().on('start-voting', s => {
+      console.log(s)
+
+    })
+
+ 
   }, []);
 
   return (
@@ -55,11 +71,15 @@ export default function WaitingRoom(props) {
         <PlayerList>{left}</PlayerList>
         <WaterCooler>
           <Space direction="vertical" size="large">
-            <Button type="primary" size="large">
+            {gameStarted && <> <Button type="primary" size="large">
               JOIN GAME
             </Button>
             <Button type="primary" size="large">
               JOIN ZOOM
+            </Button> </>}
+            <p style={{width: '150px'}}>Press start game when all users are in</p>
+            <Button type="primary" size="large">
+              START GAME
             </Button>
           </Space>
         </WaterCooler>
