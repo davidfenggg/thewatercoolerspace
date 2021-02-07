@@ -26,7 +26,7 @@ export default function Login(props) {
       console.log(e);
 
       if(e.accepted){
-        history.push(`/company/${e.companyName}/`)
+        history.push(`/company/${companyId}/`)
       } else {
         message.error('There was an issue entering this organization.')
       }
