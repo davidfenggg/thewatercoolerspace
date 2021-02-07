@@ -45,7 +45,7 @@ export default function Admin(props) {
   }
 
   return ( <>
-      <Button onClick={() => setVis(true)}>Create New Organization</Button>
+      <Button style={{position: 'absolute', top: '0', right: '0', margin: '15px'}} onClick={() => setVis(true)}>Create New Organization</Button>
 
     <Modal
       visible={vis}
