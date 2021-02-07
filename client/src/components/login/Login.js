@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import WaterCooler from "../waitingroom/WaterCooler";
-import { Button, Input, Space } from "antd";
+import { Button, Input, Space, message } from "antd";
 
 import { getSocket } from "../../services/socket";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 const SpacePadded = styled(Space)`
   padding-top: 40px;
@@ -17,11 +18,24 @@ export default function Login(props) {
   const [name, setName] = useState("");
   const [companyId, setCompanyId] = useState("");
   const [pin, setPin] = useState("");
+  let history = useHistory();
+
+  useEffect(() => {
+
+    getSocket().on('login-response', e => {
+      console.log(e);
+
+      if(e.accepted){
+        history.push(`/company/${e.companyName}/`)
+      } else {
+        message.error('There was an issue entering this organization.')
+      }
+    });
+
+  }, [])
+
 
   const emitLogin = () => {
-    console.log(name);
-    console.log(companyId);
-    console.log(pin);
     getSocket().emit("login", {
       name: name,
       companyId: companyId,

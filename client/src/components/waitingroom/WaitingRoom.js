@@ -10,6 +10,8 @@ import VoteModal from "./VoteModal";
 import Admin from "../admin/Admin.js";
 import styled from "styled-components";
 
+import { getSocket } from 'socket.io-client';
+
 const SpacePadded = styled(Space)`
   padding-top: 50px;
 `;
@@ -32,6 +34,9 @@ export default function WaitingRoom(props) {
   const [right, setRight] = useState([]);
 
   useEffect(() => {
+
+    
+
     setLeft([]);
     setRight([]);
 
