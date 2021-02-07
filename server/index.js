@@ -1,6 +1,11 @@
 var express = require('express');
-var db = require('./db.js');
+var cors = require('cors')
 var app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+var db = require('./db.js');
+
+app.use(cors())
 
 app.get('/', async function (req, res) {
 
@@ -8,10 +13,17 @@ app.get('/', async function (req, res) {
    console.log(await db.addOrganization('Carnegie Mellon University', '6666', 'cmu'));
 })
 
-var server = app.listen(6060, function () {
-   var host = server.address().address
-   var port = server.address().port
-   
-   console.log("Example app listening at http://%s:%s", host, port)
-})
+io.on('connection', (socket) => {
+   console.log('user connected')
+   socket.on('login', (msg) => {
+      console.log('logged in!')
+   });
+   socket.on('disconnect', () => {
+      console.log('user disconnected')
+   });
+});
+
+http.listen(6060, () => {
+   console.log('listening on *:6060');
+});
 
