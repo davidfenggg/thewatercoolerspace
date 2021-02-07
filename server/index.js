@@ -8,7 +8,7 @@ const io = require('socket.io')(http, {
      methods: ["GET", "POST"]
    }
  });
-// var db = require('./db.js');
+var db = require('./db.js');
 
 app.use(cors())
 
@@ -19,13 +19,26 @@ app.get('/', async function (req, res) {
 })
 
 io.on('connection', (socket) => {
-   console.log('user connected');
-   socket.on('login', (msg) => {
-      console.log(msg)
-   });
-   socket.on('disconnect', () => {
-      console.log('user disconnected')
-   });
+   try{
+      socket.on('login', async (msg) => {
+         if (await db.checkOrganization(msg.companyId, msg.pin)) {
+            socket.emit('login-response', 
+                        {accepted:true, 
+                        'org-name':(await db.getOrganizationName(msg.companyId))});
+         } else {
+            socket.emit('login-response', {accepted:false});
+         }
+      });
+      socket.on('disconnect', () => {
+         console.log('user disconnected')
+      });
+      socket.on('create-organization', async (msg) => {
+         
+      });
+   }
+   catch (err){
+      console.log(err);
+   }
 });
 
 http.listen(6060, () => {

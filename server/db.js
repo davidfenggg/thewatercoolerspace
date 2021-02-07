@@ -64,4 +64,12 @@ var addOrganization = async function (name, pin, nickname) {
     return true;
 }
 
-module.exports = {checkOrganization, addOrganization};
+var getOrganizationName = async function (nickname) {
+    if (!(await organizationExists(nickname))){
+        return undefined;
+    }
+    const res =  await query(`SELECT name FROM organizations where nickname = \'${nickname}\'`);
+    console.log(res)
+}
+
+module.exports = {checkOrganization, addOrganization, getOrganizationName};
