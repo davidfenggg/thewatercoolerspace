@@ -94,3 +94,39 @@
   animation-play-state: running;
   background-color: #f00;
 }
+
+.column {
+  float: left;
+  width: 33%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+  justify-content: space-evenly;
+}
+
+.circle {
+  width: 75px;
+  height: 75px;
+  border-radius: 250px;
+  font-size: 40px;
+  position: relative;
+  color: #fff;
+  line-height: 70px;
+  background: #000;
+  justify-content: center;
+}
+
+input[type="button"] {
+  border: none !important;
+  outline: none !important;
+}
