@@ -60,7 +60,7 @@ export default function Admin(props) {
         <Space>  
       <p>Name of Organization</p>
            <InputField
-          onChange={(e) => setOrgName(e.target.value)}
+          onChange={(e) => {setOrgName(e.target.value); generateID();}}
           value={orgName}
           placeholder="UOttawa, Inc."
           size="large"
@@ -79,7 +79,7 @@ export default function Admin(props) {
         <Space>
         <p>Organization ID to share</p>
           <InputField
-            value={generateID(orgName)}
+            value={organizationId}
             placeholder="Organization ID"
             size="large"
             disabled
