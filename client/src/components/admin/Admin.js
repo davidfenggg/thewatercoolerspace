@@ -3,62 +3,20 @@ import { Button, Input, Space, Modal } from "antd";
 
 import styled from "styled-components";
 
-import {getSocket} from '../../services/socket'
-
 const InputField = styled(Input)`
   width: 30rem;
 `;
 
 export default function Admin(props) {
   const [orgName, setOrgName] = useState("");
-  const [pin, setPin] = useState('');
-  const [organizationId, setOrgId] = useState('');
-
-  const [vis, setVis] = useState(false);
+  const [vis, setVis] = useState(true);
 
   function onSubmit() {
-    getSocket().emit('create-organization',{
-
-      organizationId: organizationId,
-      pin: pin,
-      name: orgName.toLowerCase()
-
-    })
-
-    Modal.info({
-      title: 'Share your organization!',
-      content: (
-        <div>
-          <p>Company ID: {organizationId}</p>
-          <p>PIN: {pin}</p>
-        </div>
-      )
-    });
-
-
+    console.log(orgName);
     setVis(false);
   }
 
-  const generateID = () => {
-    if (!orgName) {
-      return "";
-    }
-
-    let id = orgName.replaceAll(' ', '');
-    if (id.length > 5) {
-      id = id.substring(0, 5);
-      id += '-' + (Math.ceil(Math.random() * 9000 + 1000))
-    } else {
-      id += '-' + (Math.ceil(Math.random() * 9000 + 1000))
-    }
-
-    setOrgId(id);
-    return id;
-  }
-
-  return ( <>
-      <Button style={{position: 'absolute', top: '0', right: '0', margin: '15px'}} onClick={() => setVis(true)}>Create New Organization</Button>
-
+  return (
     <Modal
       visible={vis}
       width="50%"
@@ -67,41 +25,13 @@ export default function Admin(props) {
       }}
       onOk={(e) => onSubmit()}
     >
-      <h1>Create New Organization</h1>
-      <Space direction="vertical">
-        <Space>  
-      <p>Name of Organization</p>
-           <InputField
-          onChange={(e) => {setOrgName(e.target.value); generateID();}}
-          value={orgName}
-          placeholder="UOttawa, Inc."
-          size="large"
-        />
-        </Space>
-        <Space>
-        <p>Security PIN</p>
-
-          <InputField
-            onChange={(e) => setPin(e.target.value)}
-            value={pin}
-            placeholder="0000"
-            size="large"
-          />
-        </Space>
-        <Space>
-        <p>Organization ID to share</p>
-          <InputField
-            value={organizationId}
-            placeholder="Organization ID"
-            size="large"
-            disabled
-          />
-        </Space>
-
-      </Space>
-
+      <h1>Creaate New Organization</h1>
+      <InputField
+        onChange={(e) => setOrgName(e.target.value)}
+        value={orgName}
+        placeholder="Enter organization name"
+        size="large"
+      />
     </Modal>
-    </>
-
   );
 }
